@@ -81,23 +81,23 @@
 
 
 
-<meta name="description" content="背景：由于网页的执行都是单线程的，在JS执行的过程中，页面会呈现阻塞状态。因此，如果JS处理的数据量过大，过程复杂，可能会造成页面的卡顿。传统的数据展现都以分页的形式，但是分页的效果并不好，需要用户手动点击下一页，才能看到更多的内容。有很多网站使用无限分页的模式，即网页视窗到达内容底部就自动加载下一部分的内容… 原理：实现无限分页的过程大致如下：   1 视窗滚动到底部；   2 触发加载，添加">
+<meta name="description" content="背景：由于网页的执行都是单线程的，在JS执行的过程中，页面会呈现阻塞状态。因此，如果JS处理的数据量过大，过程复杂，可能会造成页面的卡顿。传统的数据展现都以分页的形式，但是分页的效果并不好，需要用户手动点击下一页，才能看到更多的内容。有很多网站使用无限分页的模式，即网页视窗到达内容底部就自动加载下一部分的内容… 原理：实现无限分页的过程大致如下：  1 视窗滚动到底部； 2 触发加载，添加到现有">
 <meta name="keywords" content="js">
 <meta property="og:type" content="article">
 <meta property="og:title" content="10行代码实现页面无限滚动">
 <meta property="og:url" content="http://yoursite.com/2018/08/28/10行代码实现页面无限滚动/index.html">
 <meta property="og:site_name" content="Dagou&#39;s Notes">
-<meta property="og:description" content="背景：由于网页的执行都是单线程的，在JS执行的过程中，页面会呈现阻塞状态。因此，如果JS处理的数据量过大，过程复杂，可能会造成页面的卡顿。传统的数据展现都以分页的形式，但是分页的效果并不好，需要用户手动点击下一页，才能看到更多的内容。有很多网站使用无限分页的模式，即网页视窗到达内容底部就自动加载下一部分的内容… 原理：实现无限分页的过程大致如下：   1 视窗滚动到底部；   2 触发加载，添加">
+<meta property="og:description" content="背景：由于网页的执行都是单线程的，在JS执行的过程中，页面会呈现阻塞状态。因此，如果JS处理的数据量过大，过程复杂，可能会造成页面的卡顿。传统的数据展现都以分页的形式，但是分页的效果并不好，需要用户手动点击下一页，才能看到更多的内容。有很多网站使用无限分页的模式，即网页视窗到达内容底部就自动加载下一部分的内容… 原理：实现无限分页的过程大致如下：  1 视窗滚动到底部； 2 触发加载，添加到现有">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/08/28/10行代码实现页面无限滚动/project.png">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/3/26/162601a5dc03cd39?w=710&h=486&f=png&s=126101">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/3/26/162602a72e8f2eb8?w=700&h=170&f=png&s=16952">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/3/26/1626024ed10fd464?w=550&h=544&f=png&s=35003">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/3/26/162603420d8df793?w=1040&h=669&f=png&s=77908">
-<meta property="og:updated_time" content="2018-08-28T08:50:00.563Z">
+<meta property="og:updated_time" content="2018-08-28T08:58:31.726Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="10行代码实现页面无限滚动">
-<meta name="twitter:description" content="背景：由于网页的执行都是单线程的，在JS执行的过程中，页面会呈现阻塞状态。因此，如果JS处理的数据量过大，过程复杂，可能会造成页面的卡顿。传统的数据展现都以分页的形式，但是分页的效果并不好，需要用户手动点击下一页，才能看到更多的内容。有很多网站使用无限分页的模式，即网页视窗到达内容底部就自动加载下一部分的内容… 原理：实现无限分页的过程大致如下：   1 视窗滚动到底部；   2 触发加载，添加">
+<meta name="twitter:description" content="背景：由于网页的执行都是单线程的，在JS执行的过程中，页面会呈现阻塞状态。因此，如果JS处理的数据量过大，过程复杂，可能会造成页面的卡顿。传统的数据展现都以分页的形式，但是分页的效果并不好，需要用户手动点击下一页，才能看到更多的内容。有很多网站使用无限分页的模式，即网页视窗到达内容底部就自动加载下一部分的内容… 原理：实现无限分页的过程大致如下：  1 视窗滚动到底部； 2 触发加载，添加到现有">
 <meta name="twitter:image" content="http://yoursite.com/2018/08/28/10行代码实现页面无限滚动/project.png">
 
 
@@ -357,15 +357,27 @@
       
         <p><img src="/2018/08/28/10行代码实现页面无限滚动/project.png" alt=""></p>
 <h1 id="背景："><a href="#背景：" class="headerlink" title="背景："></a>背景：</h1><p><strong>由于网页的执行都是单线程的，在JS执行的过程中，页面会呈现阻塞状态。因此，如果JS处理的数据量过大，过程复杂，可能会造成页面的卡顿。传统的数据展现都以分页的形式，但是分页的效果并不好，需要用户手动点击下一页，才能看到更多的内容。有很多网站使用无限分页的模式，即网页视窗到达内容底部就自动加载下一部分的内容…</strong></p>
-<h1 id="原理："><a href="#原理：" class="headerlink" title="原理："></a>原理：</h1><p>实现无限分页的过程大致如下：<br>   1 视窗滚动到底部；<br>   2 触发加载，添加到现有内容的后面。</p>
-<p>因此，可能会出现两种情况：<br>   1 当页面的内容很少，没有出现滚动条；触发加载页面事件，直到加载到满足条件时停止加载；<br>   2 当页面的内容很多，出现了滚动条</p>
+<h1 id="原理："><a href="#原理：" class="headerlink" title="原理："></a>原理：</h1><p>实现无限分页的过程大致如下：</p>
+<ul>
+<li>1 视窗滚动到底部；</li>
+<li>2 触发加载，添加到现有内容的后面。</li>
+</ul>
+<p>因此，可能会出现两种情况：</p>
+<ul>
+<li>1 当页面的内容很少，没有出现滚动条；触发加载页面事件，直到加载到满足条件时停止加载；</li>
+<li>2 当页面的内容很多，出现了滚动条</li>
+</ul>
 <a id="more"></a>
 <h1 id="先说第一种传统的方法"><a href="#先说第一种传统的方法" class="headerlink" title="先说第一种传统的方法"></a>先说第一种传统的方法</h1><h2 id="需要理解的概念"><a href="#需要理解的概念" class="headerlink" title="需要理解的概念"></a>需要理解的概念</h2><p>scrollHeight即真实内容的高度；</p>
 <p>clientHeight比较好理解，是视窗的高度，就是我们在浏览器中所能看到内容的高度；</p>
 <p>scrollTop是视窗上面隐藏掉的部分。</p>
 <p><img src="https://user-gold-cdn.xitu.io/2018/3/26/162601a5dc03cd39?w=710&amp;h=486&amp;f=png&amp;s=126101" alt=""></p>
-<h2 id="实现思路："><a href="#实现思路：" class="headerlink" title="实现思路："></a>实现思路：</h2><p>1 如果真实的内容比视窗高度小，则一直加载到超过视窗</p>
-<p>2 如果超过了视窗，则判断下面隐藏的部分的距离是否小于一定的值，如果是，则触发加载。（即滚动到了底部）</p>
+<h2 id="实现思路："><a href="#实现思路：" class="headerlink" title="实现思路："></a>实现思路：</h2><ul>
+<li><p>1 如果真实的内容比视窗高度小，则一直加载到超过视窗</p>
+</li>
+<li><p>2 如果超过了视窗，则判断下面隐藏的部分的距离是否小于一定的值，如果是，则触发加载。（即滚动到了底部）</p>
+</li>
+</ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 触发条件函数</span><br><span class="line">function lowEnough()&#123;</span><br><span class="line">           var pageHeight = Math.max(document.body.scrollHeight,document.body.offsetHeight);</span><br><span class="line">           var viewportHeight = window.innerHeight ||</span><br><span class="line">               document.documentElement.clientHeight ||</span><br><span class="line">               document.body.clientHeight || 0;</span><br><span class="line">           var scrollHeight = window.pageYOffset ||</span><br><span class="line">               document.documentElement.scrollTop ||</span><br><span class="line">               document.body.scrollTop || 0;</span><br><span class="line">           return pageHeight - viewportHeight - scrollHeight &lt; 20;  // 通过 真实内容高度 - 视窗高度 - 上面隐藏的高度 &lt; 20，作为加载的触发条件</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
 <h1 id="第二种方法：IntersectionObserver（简单、但对浏览器有要求）"><a href="#第二种方法：IntersectionObserver（简单、但对浏览器有要求）" class="headerlink" title="第二种方法：IntersectionObserver（简单、但对浏览器有要求）"></a>第二种方法：IntersectionObserver（简单、但对浏览器有要求）</h1><h2 id="一、API"><a href="#一、API" class="headerlink" title="一、API"></a>一、API</h2><p>它的用法非常简单。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var io = new IntersectionObserver(callback, option);</span><br><span class="line">// 开始观察</span><br><span class="line">io.observe(document.getElementById(&apos;example&apos;));</span><br><span class="line"></span><br><span class="line">// 停止观察</span><br><span class="line">io.unobserve(element);</span><br><span class="line"></span><br><span class="line">// 关闭观察器</span><br><span class="line">io.disconnect();</span><br></pre></td></tr></table></figure>
