@@ -81,22 +81,23 @@
 
 
 
-<meta name="description" content="一、两种数据类型&amp;emsp;&amp;emsp;首先，得理解Javascript中有两种数据类型：基本数据类型和引用数据类型。基本数据类型保存在栈内存中，引用数据类型保存在堆内存中。那么，为什么会有这样子的保存数据方式呢？保存在栈内存的必须是大小固定的数据，引用数据类型大小不固定，只能保存在堆内存中。所以在访问的时候，基本数据类型就是按值访问，操作的就是变量保存的值，访问引用类型的时候，只能访问保存在变量">
+<meta name="description" content="一、两种数据类型&amp;emsp;&amp;emsp;首先，得理解Javascript中有两种数据类型：基本数据类型和引用数据类型。基本数据类型保存在栈内存中，引用数据类型保存在堆内存中。那么，为什么会有这样子的保存数据方式呢？保存在栈内存的必须是大小固定的数据，引用数据类型大小不固定，只能保存在堆内存中。所以在访问的时候，基本数据类型就是按值访问，操作的就是变量保存的值，访问引用类型的时候，只能访问保存在变">
 <meta name="keywords" content="js">
 <meta property="og:type" content="article">
 <meta property="og:title" content="理解Javascript中的深拷贝和浅拷贝">
 <meta property="og:url" content="http://yoursite.com/2018/08/29/理解Javascript中的深拷贝和浅拷贝/index.html">
 <meta property="og:site_name" content="Dagou&#39;s Notes">
-<meta property="og:description" content="一、两种数据类型&amp;emsp;&amp;emsp;首先，得理解Javascript中有两种数据类型：基本数据类型和引用数据类型。基本数据类型保存在栈内存中，引用数据类型保存在堆内存中。那么，为什么会有这样子的保存数据方式呢？保存在栈内存的必须是大小固定的数据，引用数据类型大小不固定，只能保存在堆内存中。所以在访问的时候，基本数据类型就是按值访问，操作的就是变量保存的值，访问引用类型的时候，只能访问保存在变量">
+<meta property="og:description" content="一、两种数据类型&amp;emsp;&amp;emsp;首先，得理解Javascript中有两种数据类型：基本数据类型和引用数据类型。基本数据类型保存在栈内存中，引用数据类型保存在堆内存中。那么，为什么会有这样子的保存数据方式呢？保存在栈内存的必须是大小固定的数据，引用数据类型大小不固定，只能保存在堆内存中。所以在访问的时候，基本数据类型就是按值访问，操作的就是变量保存的值，访问引用类型的时候，只能访问保存在变">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/08/29/理解Javascript中的深拷贝和浅拷贝/project.png">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/8/29/1658457873bf75c2?w=544&h=222&f=png&s=6584">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/8/29/165845bfc9e31613?w=577&h=513&f=png&s=81940">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/8/29/16584646b693ec57?w=800&h=457&f=png&s=40209">
-<meta property="og:updated_time" content="2018-08-29T07:12:51.144Z">
+<meta property="og:updated_time" content="2018-08-29T07:17:27.397Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="理解Javascript中的深拷贝和浅拷贝">
-<meta name="twitter:description" content="一、两种数据类型&amp;emsp;&amp;emsp;首先，得理解Javascript中有两种数据类型：基本数据类型和引用数据类型。基本数据类型保存在栈内存中，引用数据类型保存在堆内存中。那么，为什么会有这样子的保存数据方式呢？保存在栈内存的必须是大小固定的数据，引用数据类型大小不固定，只能保存在堆内存中。所以在访问的时候，基本数据类型就是按值访问，操作的就是变量保存的值，访问引用类型的时候，只能访问保存在变量">
-<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/8/29/1658457873bf75c2?w=544&h=222&f=png&s=6584">
+<meta name="twitter:description" content="一、两种数据类型&amp;emsp;&amp;emsp;首先，得理解Javascript中有两种数据类型：基本数据类型和引用数据类型。基本数据类型保存在栈内存中，引用数据类型保存在堆内存中。那么，为什么会有这样子的保存数据方式呢？保存在栈内存的必须是大小固定的数据，引用数据类型大小不固定，只能保存在堆内存中。所以在访问的时候，基本数据类型就是按值访问，操作的就是变量保存的值，访问引用类型的时候，只能访问保存在变">
+<meta name="twitter:image" content="http://yoursite.com/2018/08/29/理解Javascript中的深拷贝和浅拷贝/project.png">
 
 
 
@@ -353,8 +354,10 @@
       
 
       
-        <h2 id="一、两种数据类型"><a href="#一、两种数据类型" class="headerlink" title="一、两种数据类型"></a>一、两种数据类型</h2><p>&emsp;&emsp;首先，得理解Javascript中有两种数据类型：<strong>基本数据类型</strong>和<strong>引用数据类型</strong>。基本数据类型保存在栈内存中，引用数据类型保存在堆内存中。那么，为什么会有这样子的保存数据方式呢？保存在栈内存的必须是大小固定的数据，引用数据类型大小不固定，只能保存在堆内存中。所以在访问的时候，基本数据类型就是按值访问，操作的就是变量保存的值，访问引用类型的时候，只能访问保存在变量中的引用类型的<strong>地址</strong>来操作实际对象。</p>
+        <p><img src="/2018/08/29/理解Javascript中的深拷贝和浅拷贝/project.png" alt=""></p>
+<h2 id="一、两种数据类型"><a href="#一、两种数据类型" class="headerlink" title="一、两种数据类型"></a>一、两种数据类型</h2><p>&emsp;&emsp;首先，得理解Javascript中有两种数据类型：<strong>基本数据类型</strong>和<strong>引用数据类型</strong>。基本数据类型保存在栈内存中，引用数据类型保存在堆内存中。那么，为什么会有这样子的保存数据方式呢？保存在栈内存的必须是大小固定的数据，引用数据类型大小不固定，只能保存在堆内存中。所以在访问的时候，基本数据类型就是按值访问，操作的就是变量保存的值，访问引用类型的时候，只能访问保存在变量中的引用类型的<strong>地址</strong>来操作实际对象。</p>
 <h3 id="1、基本数据类型"><a href="#1、基本数据类型" class="headerlink" title="1、基本数据类型"></a>1、基本数据类型</h3><p>&emsp;&emsp;常见的基本数据类型包括：Number， String， Boolean，Null和Undefined，基本数据类型是按值访问的，所以可以直接操作保存在变量中的实际值，比如：<br><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">let</span> b = a;</span><br><span class="line">b = <span class="number">20</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">//10</span></span><br><span class="line"><span class="built_in">console</span>.log(b); <span class="comment">//20</span></span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
 <p><img src="https://user-gold-cdn.xitu.io/2018/8/29/1658457873bf75c2?w=544&amp;h=222&amp;f=png&amp;s=6584" alt=""></p>
 <h3 id="2、引用数据类型"><a href="#2、引用数据类型" class="headerlink" title="2、引用数据类型"></a>2、引用数据类型</h3><p>&emsp;&emsp;也就是我们所知道的Object，Function等。引用类型数据在栈内存中保存的实际上是对象在堆内存中的引用地址。通过这个引用地址可以快速查找到保存中堆内存中的对象。比如：<br><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj1 = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line"><span class="keyword">let</span> obj2 = obj1;</span><br><span class="line">obj2.name = <span class="string">"Hello"</span></span><br><span class="line"><span class="built_in">console</span>.log(obj1.name); <span class="comment">// Hello</span></span><br></pre></td></tr></table></figure></p>
 <p><img src="https://user-gold-cdn.xitu.io/2018/8/29/165845bfc9e31613?w=577&amp;h=513&amp;f=png&amp;s=81940" alt=""></p>
