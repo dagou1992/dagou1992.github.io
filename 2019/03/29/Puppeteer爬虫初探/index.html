@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Node," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Dagou's Notes" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="今天发现了一个很好玩的node库，Puppeteer，准备玩一下。先来看看官方的介绍。  Puppeteer 是一个 Node 库，它提供了一个高级 API 来通过 DevTools 协议控制 Chromium 或 Chrome。换句话说，它最大的特点就是它的操作Dom可以完全在内存中进行模拟既在V8引擎中处理而不打开浏览器。  那么 Puppeteer可以用来做什么？  可以生成页面PDF文件">
+<meta name="keywords" content="Node">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Puppeteer爬虫初探">
+<meta property="og:url" content="http://yoursite.com/2019/03/29/Puppeteer爬虫初探/index.html">
+<meta property="og:site_name" content="Dagou&#39;s Notes">
+<meta property="og:description" content="今天发现了一个很好玩的node库，Puppeteer，准备玩一下。先来看看官方的介绍。  Puppeteer 是一个 Node 库，它提供了一个高级 API 来通过 DevTools 协议控制 Chromium 或 Chrome。换句话说，它最大的特点就是它的操作Dom可以完全在内存中进行模拟既在V8引擎中处理而不打开浏览器。  那么 Puppeteer可以用来做什么？  可以生成页面PDF文件">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/03/29/Puppeteer爬虫初探/project.png">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/3/29/169c85b485864875?w=994&h=930&f=png&s=174110">
+<meta property="og:updated_time" content="2019-03-29T09:42:36.500Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Puppeteer爬虫初探">
+<meta name="twitter:description" content="今天发现了一个很好玩的node库，Puppeteer，准备玩一下。先来看看官方的介绍。  Puppeteer 是一个 Node 库，它提供了一个高级 API 来通过 DevTools 协议控制 Chromium 或 Chrome。换句话说，它最大的特点就是它的操作Dom可以完全在内存中进行模拟既在V8引擎中处理而不打开浏览器。  那么 Puppeteer可以用来做什么？  可以生成页面PDF文件">
+<meta name="twitter:image" content="http://yoursite.com/2019/03/29/Puppeteer爬虫初探/project.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/29/Puppeteer爬虫初探/"/>
+
+
+
+
+
+  <title>Puppeteer爬虫初探 | Dagou's Notes</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Dagou's Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">你，是自在如风的少年。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-主页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            主页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/29/Puppeteer爬虫初探/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dagou">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dagou's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Puppeteer爬虫初探</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-29T16:03:51+08:00">
+                2019-03-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span id="busuanzi_value_page_pv"></span>次阅读
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="/2019/03/29/Puppeteer爬虫初探/project.png" alt=""></p>
+<p>今天发现了一个很好玩的node库，Puppeteer，准备玩一下。先来看看官方的介绍。</p>
+<blockquote>
+<p>Puppeteer 是一个 Node 库，它提供了一个高级 API 来通过 DevTools 协议控制 Chromium 或 Chrome。换句话说，它最大的特点就是它的操作Dom可以完全在内存中进行模拟既在V8引擎中处理而不打开浏览器。</p>
+</blockquote>
+<p>那么 Puppeteer可以用来做什么？</p>
+<ul>
+<li><strong>可以生成页面PDF文件；</strong></li>
+<li><strong>抓取 SPA（单页应用）并生成预渲染内容（即“SSR”（服务器端渲染））；</strong></li>
+<li><strong>自动提交表单，进行 UI 测试，键盘输入等；</strong></li>
+<li><strong>创建一个时时更新的自动化测试环境。 使用最新的 JavaScript； 和浏览器功能直接在最新版本的Chrome中执行测试；</strong></li>
+<li><strong>捕获网站的 timeline trace，用来帮助分析性能问题；</strong></li>
+<li><strong>测试浏览器扩展；</strong></li>
+</ul>
+<p>这么多优秀的功能，简直是前端神器。</p>
+<p>Puppeteer 因为需要使用 async / await，所以尽量保证Node的版本在v7.6.0以上。</p>
+<p>本文主要拿它的爬虫功能玩一玩。</p>
+<a id="more"></a>
+<p>——————–—————–<strong>假装分隔符</strong>——————————————–</p>
+<p>安装很简单，一句话搞定：<br><figure class="highlight plain"><figcaption><span>i puppeteer or yarn add puppeteer```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">安装好以后，写个例子玩一下：</span><br></pre></td></tr></table></figure></p>
+<p>const puppeteer = require(‘puppeteer’);<br>(async() =&gt; {<br>    // 配置浏览器<br>    const browser = await puppeteer.launch({headless: true})；</p>
+<pre><code>// 打开一个新页面
+const page = await browser.newPage();
+
+// 进入页面
+await page.goto(&apos;https://juejin.im/timeline&apos;);
+
+// 截个图看一下
+await page.screenshot({
+    path: &apos;image.png&apos;,
+    fullPage: true,
+ });
+</code></pre><p>})();<br><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">没错，我们准备爬一下掘金的数据。看一下刚才的截图</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">![]<span class="params">(https://user-gold-cdn.xitu.io/2019/3/29/169c846867d97089?<span class="attr">w</span>=800&amp;<span class="attr">h</span>=2462&amp;<span class="attr">f</span>=png&amp;<span class="attr">s</span>=218928)</span></span><br><span class="line"></span><br><span class="line">很神奇有木有，几行代码就实现了长截图。</span><br><span class="line"></span><br><span class="line">进去了网址，接着玩一下它的输入框。</span><br></pre></td></tr></table></figure></p>
+<p>// 进入页面<br>await page.goto(‘<a href="https://juejin.im/timeline&#39;)" target="_blank" rel="noopener">https://juejin.im/timeline&#39;)</a>;</p>
+<p>// 找到输入框的class<br>await page.type(‘.search-input’, “puppeteer”);</p>
+<p>// 按下enter键<br>await page.keyboard.press(‘Enter’);</p>
+<p>// 等两秒钟，模拟一下用户输入，也要登一下数据刷出来<br>await page.waitFor(2000);</p>
+<p>// 再截个图看一下<br>await page.screenshot({<br>    path: ‘image.png’,<br>    fullPage: true,<br> });<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">![](https://user-gold-cdn.xitu.io/2019/3/29/169c84ffaf4fad81?w=960&amp;h=3217&amp;f=png&amp;s=389080)</span><br><span class="line"></span><br><span class="line">查到数据了！！也就是仅仅几行代码，就实现了搜索。可以脑补一下，**模拟用户登录**哦~~~</span><br><span class="line"></span><br><span class="line">截图和操作输入框我们都玩过了，那我们就可以做一个简单的小东西，**实现一个页面，在搜索框里面输入关键字，查找出掘金的相关文章。**</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">正常操作，</span><br><span class="line"></span><br><span class="line">安装一下express `yarn add express`</span><br><span class="line"></span><br><span class="line">创建index.js</span><br></pre></td></tr></table></figure></p>
+<p>const express = require(‘express’);<br>const app = express();<br>const ejs = require(‘ejs’);<br>const main = require(‘./puppeteer’);</p>
+<p>app.set(‘view engine’,’ejs’);</p>
+<p>app.use(‘/index’, (req, res) =&gt; res.render(‘index’));</p>
+<p>app.use(‘/search’, async(req, res) =&gt; {<br>    const { value, more } = req.query;<br>    const list = await main(value, more);<br>    res.send(list);<br>});</p>
+<p>app.listen(3000, () =&gt; console.log(‘Example app listening on port 3000!’));<br><figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">我们用到了ejs模板，有时间的童鞋可以写一个漂亮美观的前端页面~</span><br><span class="line"></span><br><span class="line">在同级目录下创建views目录，然后再创建<span class="keyword">index</span>.html</span><br></pre></td></tr></table></figure></p>
+<p>&lt;!doctype html&gt;</p>
+<p><html lang="en"></html></p>
+<p><head><br>    <meta charset="UTF-8"><br>    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"><br>    <meta http-equiv="X-UA-Compatible" content="ie=edge"><br>    <title>node爬虫</title><br></head></p>
+<p><body></body></p>
+<p><ul class="list"></ul></p>
+<p><input type="text" class="input_value"><br><span class="search" style="cursor: pointer; color: blue;">Search</span><br></p>
+<p><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script></p>
+<p><script><br>    $(‘.search’).click(() =&gt; {<br>        $.ajax({<br>            type: ‘GET’,<br>            url: ‘/search’,<br>            data: {value: $(‘.input_value’).val()},<br>            success: res =&gt; $(‘ul’).html(res.reduce((total, item) =&gt; total + <code>&lt;li&gt;&lt;a target=&quot;_blank&quot; href=&quot;${item.href}&quot;&gt;${item.title}&lt;/a&gt;&lt;/li&gt;</code>, ‘’))<br>        });<br>    });<br></script><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">接着创建关键爬虫代码：</span><br></pre></td></tr></table></figure></p>
+<p>const puppeteer = require(‘puppeteer’);</p>
+<p>async function main(value) {<br>    // 配置浏览器<br>    const browser = await puppeteer.launch({headless: true});</p>
+<pre><code>// 创建一个新页面
+const page = await browser.newPage();
+
+// 进入网址
+await page.goto(&apos;https://juejin.im/timeline&apos;);
+
+// 找到搜索框
+await page.type(&apos;.search-input&apos;, value);
+
+// 点击搜索
+await page.keyboard.press(&apos;Enter&apos;);
+
+// 等待文章列表出来
+await page.waitForSelector(&apos;.main-list&apos;);
+
+// 截图看一下
+await page.screenshot({
+    path: &apos;image.png&apos;,
+    fullPage: true,
+});
+
+// 找一下文章容器
+const list = await page.$(&apos;.main-list&apos;);
+
+// 组合一下文章标题和链接
+const result = await list.$$eval(&apos;.entry-link&apos;, e =&gt; e.map(v =&gt; ({
+    href: v.href,
+    title: v.querySelector(&apos;.title&apos;).firstChild.innerText
+})));
+
+return result;
+</code></pre><p>}</p>
+<p>module.exports = main;<br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">就创建三个文件，<span class="keyword">node</span> <span class="title">index</span>.js一下，看看效果~ （界面略丑）</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">![](https://user-gold-cdn.xitu.io/<span class="number">2019</span>/<span class="number">3</span>/<span class="number">29</span>/<span class="number">169</span>c8594afc217df?w=<span class="number">887</span>&amp;h=<span class="number">563</span>&amp;f=png&amp;s=<span class="number">76246</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">好像少了点，再爬多一点, 把滚动条往下滑到<span class="number">3000</span>的位置，试一下：</span><br></pre></td></tr></table></figure></p>
+<p>// 等待文章列表出来<br>await page.waitForSelector(‘.main-list’);</p>
+<p>// 把滚动条滚动到指定位置<br>await page.evaluate(() =&gt; window.scrollTo(0, 3000));</p>
+<p>// 等待时间根据滚动条的位置要增加，不然来不及反应<br>await page.waitFor(2000);<br><code>`</code></p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/3/29/169c85b485864875?w=994&amp;h=930&amp;f=png&amp;s=174110" alt=""></p>
+<p>没截全，然后脑补一下，是不是可以用自己写的爬虫去爬自己的爬虫，来搞个长截图~（我就不试了，留给你们~）</p>
+<p>好了，Puppeteer的确很强大，也很好玩，大家有兴趣的话，可以用它来爬一些自己感兴趣的网站。~</p>
+<p>最后附上全部代码地址： <a href="https://user-gold-cdn.xitu.io/2019/3/29/169c85e66172f1b5" target="_blank" rel="noopener">github</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Node/" rel="tag"># Node</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/31/深刻理解Node特性/" rel="next" title="深刻理解Node特性">
+                <i class="fa fa-chevron-left"></i> 深刻理解Node特性
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="Dagou" />
+            
+              <p class="site-author-name" itemprop="name">Dagou</p>
+              <p class="site-description motion-element" itemprop="description">开口便笑，凡事付之一笑。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/dagou1992" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:jbq19920903@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/jbq19920903" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.facebook.com/jbq19920903" target="_blank" title="FB Page">
+                      
+                        <i class="fa fa-fw fa-facebook"></i>FB Page</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">偶尔耍点小聪明</span>
+
+  
+</div>
+
+
+
+
+
+
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

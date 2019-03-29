@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-08-31T08:12:29.409Z</updated>
+  <updated>2019-03-29T09:42:36.500Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,16 +17,55 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Puppeteer爬虫初探</title>
+    <link href="http://yoursite.com/2019/03/29/Puppeteer%E7%88%AC%E8%99%AB%E5%88%9D%E6%8E%A2/"/>
+    <id>http://yoursite.com/2019/03/29/Puppeteer爬虫初探/</id>
+    <published>2019-03-29T08:03:51.000Z</published>
+    <updated>2019-03-29T09:42:36.500Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;/2019/03/29/Puppeteer爬虫初探/project.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;今天发现了一个很好玩的node库，Puppeteer，准备玩一下。先来看看官方的介绍。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Puppeteer 是一个 Node 库，它提供了一个高级 API 来通过 DevTools 协议控制 Chromium 或 Chrome。换句话说，它最大的特点就是它的操作Dom可以完全在内存中进行模拟既在V8引擎中处理而不打开浏览器。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;那么 Puppeteer可以用来做什么？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;可以生成页面PDF文件；&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;抓取 SPA（单页应用）并生成预渲染内容（即“SSR”（服务器端渲染））；&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;自动提交表单，进行 UI 测试，键盘输入等；&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;创建一个时时更新的自动化测试环境。 使用最新的 JavaScript； 和浏览器功能直接在最新版本的Chrome中执行测试；&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;捕获网站的 timeline trace，用来帮助分析性能问题；&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;测试浏览器扩展；&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这么多优秀的功能，简直是前端神器。&lt;/p&gt;
+&lt;p&gt;Puppeteer 因为需要使用 async / await，所以尽量保证Node的版本在v7.6.0以上。&lt;/p&gt;
+&lt;p&gt;本文主要拿它的爬虫功能玩一玩。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="前端" scheme="http://yoursite.com/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="Node" scheme="http://yoursite.com/tags/Node/"/>
+    
+  </entry>
+  
+  <entry>
     <title>深刻理解Node特性</title>
     <link href="http://yoursite.com/2018/08/31/%E6%B7%B1%E5%88%BB%E7%90%86%E8%A7%A3Node%E7%89%B9%E6%80%A7/"/>
     <id>http://yoursite.com/2018/08/31/深刻理解Node特性/</id>
     <published>2018-08-31T08:03:51.000Z</published>
-    <updated>2018-08-31T08:12:29.409Z</updated>
+    <updated>2019-03-29T09:42:36.508Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;/2018/08/31/深刻理解Node特性/project.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;一、node架构&quot;&gt;&lt;a href=&quot;#一、node架构&quot; class=&quot;headerlink&quot; title=&quot;一、node架构&quot;&gt;&lt;/a&gt;一、node架构&lt;/h2&gt;&lt;p&gt;Node.js主要分为四大部分，Node Standard Library，Node Bindings，V8，Libuv，架构图如下:&lt;br&gt;&lt;img src=&quot;https://user-gold-cdn.xitu.io/2018/8/31/1658ec9ece8289eb?w=761&amp;amp;h=681&amp;amp;f=png&amp;amp;s=219526&quot; alt=&quot;&quot;&gt;&lt;br&gt; &lt;a href=&quot;https://github.com/yjhjstz/deep-into-node/blob/master/chapter1/chapter1-0.md&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;图片出处&lt;/a&gt;&lt;/p&gt;
+      
+      
+        &lt;p&gt;&lt;img src=&quot;/2018/08/31/深刻理解Node特性/project.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;一、node架构&quot;&gt;&lt;a href=&quot;#一、node架构&quot; class=&quot;headerlink&quot; title=&quot;一、node架构&quot;&gt;&lt;/a&gt;一
+      
     
     </summary>
     
