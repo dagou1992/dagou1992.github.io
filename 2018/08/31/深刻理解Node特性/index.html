@@ -81,21 +81,21 @@
 
 
 
-<meta name="description" content="一、node架构Node.js主要分为四大部分，Node Standard Library，Node Bindings，V8，Libuv，架构图如下: &amp;lt;!--more--&amp;gt; 对于V8的详细解释： &amp;emsp;&amp;emsp;我们都知道Node是基于V8的，那什么是V8？V8 JavaScript 引擎是 Google 用于其 Chrome 浏览器的底层 JavaScript 引擎。Go">
+<meta name="description" content="一、node架构Node.js主要分为四大部分，Node Standard Library，Node Bindings，V8，Libuv，架构图如下:">
 <meta name="keywords" content="Node">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深刻理解Node特性">
 <meta property="og:url" content="http://yoursite.com/2018/08/31/深刻理解Node特性/index.html">
 <meta property="og:site_name" content="Dagou&#39;s Notes">
-<meta property="og:description" content="一、node架构Node.js主要分为四大部分，Node Standard Library，Node Bindings，V8，Libuv，架构图如下: &amp;lt;!--more--&amp;gt; 对于V8的详细解释： &amp;emsp;&amp;emsp;我们都知道Node是基于V8的，那什么是V8？V8 JavaScript 引擎是 Google 用于其 Chrome 浏览器的底层 JavaScript 引擎。Go">
+<meta property="og:description" content="一、node架构Node.js主要分为四大部分，Node Standard Library，Node Bindings，V8，Libuv，架构图如下:">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/08/31/深刻理解Node特性/project.png">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/8/31/1658ec9ece8289eb?w=761&h=681&f=png&s=219526">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/8/31/1658ecfe48386fe9?w=800&h=316&f=png&s=52163">
-<meta property="og:updated_time" content="2019-05-15T07:02:03.995Z">
+<meta property="og:updated_time" content="2019-05-15T07:02:42.066Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深刻理解Node特性">
-<meta name="twitter:description" content="一、node架构Node.js主要分为四大部分，Node Standard Library，Node Bindings，V8，Libuv，架构图如下: &amp;lt;!--more--&amp;gt; 对于V8的详细解释： &amp;emsp;&amp;emsp;我们都知道Node是基于V8的，那什么是V8？V8 JavaScript 引擎是 Google 用于其 Chrome 浏览器的底层 JavaScript 引擎。Go">
+<meta name="twitter:description" content="一、node架构Node.js主要分为四大部分，Node Standard Library，Node Bindings，V8，Libuv，架构图如下:">
 <meta name="twitter:image" content="http://yoursite.com/2018/08/31/深刻理解Node特性/project.png">
 
 
@@ -355,7 +355,7 @@
       
         <p><img src="/2018/08/31/深刻理解Node特性/project.png" alt=""></p>
 <h2 id="一、node架构"><a href="#一、node架构" class="headerlink" title="一、node架构"></a>一、node架构</h2><p>Node.js主要分为四大部分，Node Standard Library，Node Bindings，V8，Libuv，架构图如下:<br><img src="https://user-gold-cdn.xitu.io/2018/8/31/1658ec9ece8289eb?w=761&amp;h=681&amp;f=png&amp;s=219526" alt=""></p>
-<p><code>&lt;!--more--&gt;</code></p>
+<a id="more"></a>
 <p><strong>对于V8的详细解释：</strong></p>
 <p>&emsp;&emsp;我们都知道Node是基于V8的，那什么是V8？<br>V8 JavaScript 引擎是 Google 用于其 Chrome 浏览器的底层 JavaScript 引擎。<strong>Google 使用 V8 创建了一个用 C++ 编写的超快解释器</strong>，该解释器拥有另一个独特特征, 该引擎并将其嵌入任何 应用程序。V8 JavaScript 引擎并不仅限于在一个浏览器中运行。因此，Node 实际上会使用 Google 编写的 V8 JavaScript 引擎，并将其重建为可在服务器上使用。</p>
 <p><strong>那么他们相互之间如何协作？</strong></p>
